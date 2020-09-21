@@ -1,0 +1,29 @@
+{
+    "name": "stay-at-home-back",
+    "version": "1.0.0",
+    "description": "",
+    "main": "api.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node api.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/baiest/Stay-at-home-back.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/baiest/Stay-at-home-back/issues"
+    },
+    "homepage": "https://github.com/baiest/Stay-at-home-back#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "pg": "^8.3.3",
+        "sequelize": "^6.3.5"
+    },
+    "devDependencies": {
+        "sequelize-cli": "^6.2.0"
+    }
+}

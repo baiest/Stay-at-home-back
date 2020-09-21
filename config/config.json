@@ -1,0 +1,26 @@
+{
+    "development": {
+        "username": "postgres",
+        "password": "postgres",
+        "database": "stay-at-home",
+        "host": "localhost",
+        "dialect": "postgres",
+        "logging": false
+    },
+    "test": {
+        "username": "postgres",
+        "password": "postgres",
+        "database": "stay-at-home-test",
+        "host": "localhost",
+        "dialect": "postgres",
+        "logging": false
+    },
+    "production": {
+        "username": "postgres",
+        "password": "postgres",
+        "database": "stay-at-home-production",
+        "host": "localhost",
+        "dialect": "postgres",
+        "logging": false
+    }
+}
