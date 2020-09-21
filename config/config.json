@@ -16,10 +16,10 @@
         "logging": false
     },
     "production": {
-        "username": "postgres",
-        "password": "postgres",
-        "database": "stay-at-home-production",
-        "host": "localhost",
+        "username": "wprzojeiybnvyw",
+        "password": "706f41298106625bf7c9937ae2b23b2d9bc1ce28e9f33b77d42a77a2536af6e8",
+        "database": "deriknndrf8mmu",
+        "host": "ec2-3-228-114-251.compute-1.amazonaws.com",
         "dialect": "postgres",
         "logging": false
     }
