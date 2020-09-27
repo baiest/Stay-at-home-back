@@ -4,9 +4,9 @@ module.exports = {
         await queryInterface.createTable('Informes', {
             idInforme: {
                 allowNull: false,
-                autoIncrement: true,
+                type: Sequelize.INTEGER,
                 primaryKey: true,
-                type: Sequelize.INTEGER
+                autoIncrement: true
             },
             texto: {
                 type: Sequelize.TEXT

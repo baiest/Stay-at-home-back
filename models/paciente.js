@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             this.belongsTo(models.Persona, {
-                foreignKey: 'cedula',
+                foreignKey: 'cedulaP',
                 onDelete: 'CASCADE'
             });
 
             this.belongsTo(models.Informe, {
-                foreignKey: 'idInforme',
+                foreignKey: 'informeP',
                 onDelete: 'CASCADE'
             });
 
@@ -25,7 +25,10 @@ module.exports = (sequelize, DataTypes) => {
 
     };
     Paciente.init({
-        cedulaP: DataTypes.INTEGER,
+        cedulaP: {
+            type: DataTypes.INTEGER,
+            primaryKey: true
+        },
         edad: DataTypes.INTEGER,
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
