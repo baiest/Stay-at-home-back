@@ -11,14 +11,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            this.hasOne(models.Paciente)
         }
     };
     Informe.init({
-        idInforme: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
+        idInforme: DataTypes.INTEGER,
         texto: DataTypes.TEXT
     }, {
         sequelize,

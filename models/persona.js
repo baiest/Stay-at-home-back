@@ -2,7 +2,6 @@
 const {
     Model
 } = require('sequelize');
-const paciente = require('./paciente');
 module.exports = (sequelize, DataTypes) => {
     class Persona extends Model {
         /**
@@ -12,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            this.hasOne(models.Paciente)
         }
     };
     Persona.init({

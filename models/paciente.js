@@ -2,7 +2,6 @@
 const {
     Model
 } = require('sequelize');
-const informe = require('./informe');
 module.exports = (sequelize, DataTypes) => {
     class Paciente extends Model {
         /**
@@ -13,19 +12,12 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             this.belongsTo(models.Persona, {
-                as: 'persona',
-                foreignKey: 'cedulaP',
+                foreignKey: 'cedula',
                 onDelete: 'CASCADE'
             });
 
-            this.belongsTo(models.Persona, {
-                as: 'doctorP',
-                foreignKey: 'doctor',
-                onDelete: 'CASCADE'
-            });
             this.belongsTo(models.Informe, {
-                as: 'informe',
-                foreignKey: 'informeP',
+                foreignKey: 'idInforme',
                 onDelete: 'CASCADE'
             });
 
@@ -33,10 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 
     };
     Paciente.init({
-        cedulaP: {
-            type: DataTypes.INTEGER,
-            primaryKey: true
-        },
+        cedulaP: DataTypes.INTEGER,
         edad: DataTypes.INTEGER,
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
