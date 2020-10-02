@@ -39,7 +39,6 @@ app.get('/', async(req, res) => {
 });
 
 //AGREGAR PACIENTE A LA BD
-//Borrar
 app.post('/paciente', async(req, res) => {
     const respuesta = {
         agregado: false,
