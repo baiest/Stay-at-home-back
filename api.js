@@ -15,6 +15,7 @@ app.use(cors()); //Configurar quienes tienen permiso para usar el api
 app.use(bodyParser.json());
 app.set('port', PORT);
 
+<<<<<<< HEAD
 //PEDIR LAS PACIENTES EN LA BD
 app.get('/', async(req, res) => {
     await Paciente.findAll({
@@ -29,10 +30,32 @@ app.get('/', async(req, res) => {
                 as: 'informe'
             }]
         })
+=======
+//PEDIR LAS PERSONAS EN LA BD
+app.get('/', async (req, res) => {
+    await Persona.findAll()
+>>>>>>> e3e06248b013fc0424c0dafd7895635e574513a2
         .then(result => {
             res.send(result);
         })
         .catch(err => console.log(err));
+})
+
+app.post('/login', async (req, res) => {
+    const { email, pass } = req.body;
+   
+    const person = await Persona.findAll({
+        where:{
+            email,
+            pass
+        } 
+    })
+   if(person.length > 0){
+    res.json({ "msg": "Datos correctos"});
+   }else{
+       res.json({ "msg": "Datos correctos"});
+   }
+    
 })
 
 app.post('/login', async(req, res) => {
