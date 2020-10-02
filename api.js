@@ -41,4 +41,21 @@ app.post('/login', async (req, res) => {
     
 })
 
+app.post('/login', async(req, res) => {
+    const { email, pass } = req.body;
+
+    const person = await Persona.findAll({
+        where: {
+            email,
+            pass
+        }
+    })
+    if (person.length > 0) {
+        res.json({ "msg": "Datos correctos" });
+    } else {
+        res.json({ "msg": "Datos correctos" });
+    }
+
+})
+
 app.listen(PORT, () => console.log('Servidor iniciado en el puerto %d', PORT));
