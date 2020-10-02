@@ -33,7 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     };
     Paciente.init({
 
-        cedulaP: DataTypes.INTEGER,
+        cedulaP: {
+            type: DataTypes.INTEGER,
+            primaryKey: true
+        },
         edad: DataTypes.INTEGER,
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
