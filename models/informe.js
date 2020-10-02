@@ -14,7 +14,11 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Informe.init({
-        idInforme: DataTypes.INTEGER,
+        idInforme: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         texto: DataTypes.TEXT
     }, {
         sequelize,

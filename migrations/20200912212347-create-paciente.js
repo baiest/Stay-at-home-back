@@ -5,6 +5,7 @@ module.exports = {
             cedulaP: {
                 type: Sequelize.INTEGER,
                 onDelete: 'CASCADE',
+                primaryKey: true,
                 references: {
                     model: 'Personas',
                     key: 'cedula',
