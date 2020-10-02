@@ -39,6 +39,7 @@ app.get('/', async(req, res) => {
 });
 
 //AGREGAR PACIENTE A LA BD
+//Borrar
 app.post('/paciente', async(req, res) => {
     const respuesta = {
         agregado: false,
@@ -84,7 +85,7 @@ app.post('/paciente', async(req, res) => {
 
     res.send(respuesta)
 });
-
+//Termina paciente registro
 app.post('/login', async(req, res) => {
     const { email, pass } = req.body;
 
