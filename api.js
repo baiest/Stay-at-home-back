@@ -66,6 +66,7 @@ app.post('/paciente', async(req, res) => {
                 texto: 'Prueba Registro paciente'
             })
             .catch(err => console.log(err));
+        console.log("Entre")
         await Paciente.create({
                 cedulaP: nuevaP.cedula,
                 edad: req.body.edad,
