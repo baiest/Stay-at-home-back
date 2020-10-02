@@ -8,7 +8,6 @@ const router = express.Router();
 const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
-const bodyParser = require('body-parser')
 
 const { Persona, Paciente, Informe } = require('./models')
 
