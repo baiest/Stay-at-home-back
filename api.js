@@ -17,28 +17,12 @@ app.use(cors()); //Configurar quienes tienen permiso para usar el api
 app.use(bodyParser.json());
 app.set('port', PORT);
 
+const getPaciente = require('./routes/paciente.js');
 //PEDIR LAS PACIENTES EN LA BD
-app.get('/', async(req, res) => {
-    await Paciente.findAll({
-            include: [{
-                model: Persona,
-                as: 'persona'
-            }, {
-                model: Persona,
-                as: 'doctorP'
-            }, {
-                model: Informe,
-                as: 'informe'
-            }]
-        })
-        .then(result => {
-            res.send(result);
-        })
-        .catch(err => console.log(err));
-});
+app.use('/', getPaciente);
 
 //AGREGAR PACIENTE A LA BD
-app.post('/paciente', async(req, res) => {
+app.post('/', async(req, res) => {
     const respuesta = {
         agregado: false,
         msg: 'Ya existe ese paciente'
