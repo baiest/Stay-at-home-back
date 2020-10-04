@@ -14,16 +14,17 @@ const { Persona, Paciente, Informe } = require('./models')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors()); //Configurar quienes tienen permiso para usar el api
-app.use(bodyParser.json());
 app.set('port', PORT);
 
 const getPaciente = require('./routes/paciente.js');
 const register = require('./routes/paciente.js');
 const login = require('./routes/index.js');
+const password = require('./routes/persona.js');
 
 //RUTAS
 app.use('/paciente', getPaciente);
 app.use('/paciente', register);
+app.use('/persona', password);
 app.use('/', login);
 
 
