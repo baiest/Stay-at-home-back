@@ -15,7 +15,6 @@ const { Persona, Paciente, Informe } = require('./models')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors()); //Configurar quienes tienen permiso para usar el api
-app.use(bodyParser.json());
 app.set('port', PORT);
 
 
