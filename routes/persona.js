@@ -11,10 +11,7 @@ var transporter = nodemailer.createTransport({
         pass: 'enviador123'
     }
 });
-//Ruta para session
-router.get('/session', async(req, res) => {
-    res.json({ user: req.header.user })
-});
+
 router.get('/logout', async(req, res) => {
     req.header.token = null
     return res.json({
@@ -24,22 +21,23 @@ router.get('/logout', async(req, res) => {
 });
 router.post('/login', async(req, res) => {
     const { email, pass } = req.body;
-
     const person = await Persona.findOne({
         where: {
-            email,
-            pass
+            email
         }
     });
 
     if (person) {
-        const token = jwt.sign({ user_id: person.email }, 'secret')
-        req.header.user = person
-        console.log(req.header)
-        req.header.token = token
-        res.json({ "msg": 'Sesion iniciada', "token": token })
+        if (person.pass == pass) {
+            const token = jwt.sign({ user_id: person.email }, 'secret')
+            req.header.user = person
+            req.header.token = token
+            res.json({ "msg": 'Sesion iniciada', "token": token })
+        } else {
+            res.json({ "msg": "Datos incorrectos", err: 'pass' })
+        }
     } else {
-        res.json({ "msg": "Datos incorrectos" });
+        res.json({ "msg": "Usuario no encontrado", err: 'email' });
     }
 
 });

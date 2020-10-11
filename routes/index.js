@@ -11,4 +11,8 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/session', async(req, res) => {
+    res.json({ user: req.header.user })
+});
+
 module.exports = router
