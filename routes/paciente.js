@@ -3,7 +3,6 @@ var router = express.Router();
 const { Persona, Paciente, Informe } = require('../models')
 
 router.get('/get', async(req, res) => {
-    console.log(req.session.user_id);
     await Paciente.findAll({
             include: [{
                 model: Persona,

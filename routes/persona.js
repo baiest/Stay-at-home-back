@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const { Persona } = require('../models');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken')
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -10,7 +11,17 @@ var transporter = nodemailer.createTransport({
         pass: 'enviador123'
     }
 });
-
+//Ruta para session
+router.get('/session', async(req, res) => {
+    res.json({ user: req.header.user })
+});
+router.get('/logout', async(req, res) => {
+    req.header.token = null
+    return res.json({
+        session: false,
+        msj: "sesion cerrada"
+    })
+});
 router.post('/login', async(req, res) => {
     const { email, pass } = req.body;
 
@@ -22,8 +33,11 @@ router.post('/login', async(req, res) => {
     });
 
     if (person) {
-        req.session.user_id = person.email
-        res.json({ "msg": 'Sesion iniciada' })
+        const token = jwt.sign({ user_id: person.email }, 'secret')
+        req.header.user = person
+        console.log(req.header)
+        req.header.token = token
+        res.json({ "msg": 'Sesion iniciada', "token": token })
     } else {
         res.json({ "msg": "Datos incorrectos" });
     }
