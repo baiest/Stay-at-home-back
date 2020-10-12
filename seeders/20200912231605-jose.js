@@ -35,7 +35,7 @@ module.exports = {
 
         await queryInterface.bulkInsert('Pacientes', [{
                 cedulaP: 2,
-                edad: 24,
+                fecha_nacimiento: '2000-05-11T00:00:00.000Z',
                 direccion: 'calle 23 # 45 - 758',
                 telefono: '554',
                 doctor: 1,

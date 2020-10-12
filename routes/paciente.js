@@ -51,7 +51,7 @@ router.post('/register', async(req, res) => {
         console.log("Entre")
         await Paciente.create({
                 cedulaP: nuevaP.cedula,
-                edad: req.body.edad,
+                fecha_nacimiento: req.body.fecha_nacimiento,
                 direccion: req.body.direccion,
                 telefono: req.body.telefono,
                 doctor: 1,

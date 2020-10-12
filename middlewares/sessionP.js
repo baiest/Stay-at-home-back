@@ -10,7 +10,7 @@ module.exports = (req, res, next, tipo) => {
             if (req.header.user.tipo == 'P') {
                 next();
             } else {
-                res.json({ msj: 'No autorizado' });
+                res.json({ auth: false, msj: 'No autorizado' });
             }
         }
     } catch (err) {
