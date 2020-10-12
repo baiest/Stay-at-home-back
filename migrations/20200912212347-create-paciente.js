@@ -11,8 +11,8 @@ module.exports = {
                     as: 'cedulaP'
                 }
             },
-            edad: {
-                type: Sequelize.INTEGER
+            fecha_nacimiento: {
+                type: Sequelize.DATE
             },
             direccion: {
                 type: Sequelize.STRING

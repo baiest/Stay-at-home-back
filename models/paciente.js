@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             primaryKey: true
         },
-        edad: DataTypes.INTEGER,
+        fecha_nacimiento: DataTypes.DATE,
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
         doctor: DataTypes.INTEGER,
