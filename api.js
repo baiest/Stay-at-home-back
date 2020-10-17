@@ -12,7 +12,7 @@ const { Persona, Paciente, Informe } = require('./models')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors({origin: 'https://anavictoria1994.github.io'})); //Configurar quienes tienen permiso para usar el api
+app.use(cors()); //Configurar quienes tienen permiso para usar el api
 app.set('port', PORT);
 
 const funPaciente = require('./routes/paciente.js');
