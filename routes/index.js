@@ -1,5 +1,8 @@
+const jwt_decode = require("jwt-decode");
+
 var express = require('express');
 var router = express.Router();
+const { Persona } = require('../models');
 
 router.get('/', (req, res) => {
     res.json({
@@ -11,8 +14,13 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/session', async(req, res) => {
-    res.json({ user: req.header.user })
+router.post('/session', async(req, res) => {
+    const person = await Persona.findOne({
+        where: {
+            email: jwt_decode(req.body.token).user_id
+        }
+    });
+    res.json({ user: person })
 });
 
 module.exports = router
