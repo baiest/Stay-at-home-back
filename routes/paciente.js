@@ -42,23 +42,31 @@ router.post('/register', async(req, res) => {
                 pass: req.body.pass,
                 tipo: 'P'
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                respuesta.msg = "Un capo vacio"
+                console.log(err)
+                res.send(respuesta)
+            });
+
         const nuevoIn = await Informe.create({
-                idInforme: 15,
                 texto: 'Prueba Registro paciente'
             })
             .catch(err => console.log(err));
-        console.log("Entre")
+
         await Paciente.create({
                 cedulaP: nuevaP.cedula,
                 fecha_nacimiento: req.body.fecha_nacimiento,
                 direccion: req.body.direccion,
                 telefono: req.body.telefono,
-                doctor: 1,
+                doctor: req.body.doctor,
                 informeP: nuevoIn.idInforme
             })
             .then(res => console.log("Agregado"))
-            .catch(err => console.log(err));
+            .catch(err => {
+                respuesta.msg = "Un capo vacio"
+                console.log(err)
+                res.send(respuesta)
+            });
 
         respuesta.agregado = true;
         respuesta.msg = "Agregado exitosamente";
