@@ -21,7 +21,17 @@ module.exports = {
                 pass: '456',
                 createdAt: new Date(),
                 updatedAt: new Date(),
-            }
+            },
+            {
+                cedula: 3,
+                nombres: 'Juan',
+                apellidos: 'Suarez',
+                email: 'doctor@gmail.com',
+                tipo: 'D',
+                pass: '123',
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
         ])
 
         await queryInterface.bulkInsert('Informes', [{
