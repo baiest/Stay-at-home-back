@@ -18,6 +18,7 @@ router.post('/session', async(req, res) => {
     try {
         const decode = jwt_decode(req.body.token).user_id
         const person = await Persona.findOne({
+            attributes: { exclude: ['pass'] },
             where: {
                 email: decode
             }

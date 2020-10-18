@@ -3,18 +3,19 @@ var router = express.Router();
 const { Persona, Paciente, Informe } = require('../models')
 
 router.post('/get', async(req, res) => {
-    console.log(req.header.user.cedula)
     await Paciente.findAll({
             where: {
                 doctor: req.body.cedula
             },
             include: [{
                     model: Persona,
-                    as: 'persona'
+                    as: 'persona',
+                    attributes: { exclude: ['pass', 'cedula'] }
                 },
                 {
                     model: Informe,
-                    as: 'informe'
+                    as: 'informe',
+                    attributes: { exclude: ['idInforme'] }
                 }
             ]
         })
