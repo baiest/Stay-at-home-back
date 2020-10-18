@@ -15,12 +15,20 @@ router.get('/', (req, res) => {
 });
 
 router.post('/session', async(req, res) => {
-    const person = await Persona.findOne({
-        where: {
-            email: jwt_decode(req.body.token).user_id
-        }
-    });
-    res.json({ user: person })
+    try {
+        const decode = jwt_decode(req.body.token).user_id
+        const person = await Persona.findOne({
+            where: {
+                email: decode
+            }
+        });
+        req.header.token = person ? req.body.token : '';
+        req.header.tipo = person ? person.tipo : '';
+        res.json({ user: person });
+    } catch (e) {
+        console.log(e)
+        res.json({ session: false, msj: 'No hay session' })
+    }
 });
 
 module.exports = router

@@ -19,7 +19,28 @@ const funPaciente = require('./routes/paciente.js');
 const login = require('./routes/persona.js');
 const info = require('./routes/index.js');
 
-const session_middleware = require('./middlewares/sessionD.js');
+const session_middleware = express.Router();
+
+session_middleware.use((req, res, next) => {
+    const token = req.header.token;
+    const tipo = req.header.tipo
+    if (token) {
+        if (tipo === 'D') {
+            next();
+        } else {
+            res.json({
+                auth: false,
+                msj: 'No autorizado'
+            });
+        }
+    } else {
+        res.json({
+            session: false,
+            msj: 'Inicie sesion antes'
+        });
+    }
+    console.log(tipo)
+});
 
 //RUTAS
 app.use('/paciente', session_middleware)

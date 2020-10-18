@@ -13,7 +13,7 @@ var transporter = nodemailer.createTransport({
 });
 
 router.get('/logout', async(req, res) => {
-    req.header.token = null
+    req.header = null
     return res.json({
         session: false,
         msj: "sesion cerrada"
@@ -30,8 +30,8 @@ router.post('/login', async(req, res) => {
     if (person) {
         if (person.pass == pass) {
             const token = jwt.sign({ user_id: person.email }, 'secret')
-            req.header.user = person
             req.header.token = token
+            req.header.tipo = person.tipo
             res.json({ "msg": 'Sesion iniciada', "token": token })
         } else {
             res.json({ "msg": "Datos incorrectos", err: 'pass' })
@@ -39,7 +39,6 @@ router.post('/login', async(req, res) => {
     } else {
         res.json({ "msg": "Usuario no encontrado", err: 'email' });
     }
-
 });
 
 router.post('/forgotpass', async(req, res) => {
