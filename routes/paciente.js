@@ -2,18 +2,22 @@ var express = require('express');
 var router = express.Router();
 const { Persona, Paciente, Informe } = require('../models')
 
-router.get('/get', async(req, res) => {
+router.post('/get', async(req, res) => {
     await Paciente.findAll({
+            where: {
+                doctor: req.body.cedula
+            },
             include: [{
-                model: Persona,
-                as: 'persona'
-            }, {
-                model: Persona,
-                as: 'doctorP'
-            }, {
-                model: Informe,
-                as: 'informe'
-            }]
+                    model: Persona,
+                    as: 'persona',
+                    attributes: { exclude: ['pass', 'cedula'] }
+                },
+                {
+                    model: Informe,
+                    as: 'informe',
+                    attributes: { exclude: ['idInforme'] }
+                }
+            ]
         })
         .then(result => {
             res.send(result);

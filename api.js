@@ -19,14 +19,34 @@ const funPaciente = require('./routes/paciente.js');
 const login = require('./routes/persona.js');
 const info = require('./routes/index.js');
 
-const session_middleware_doctor = require('./middlewares/sessionD.js');
-const session_middleware_paciente = require('./middlewares/sessionD.js');
+const session_middleware = express.Router();
+
+session_middleware.use((req, res, next) => {
+    const token = req.header.token;
+    const tipo = req.header.tipo
+    if (token) {
+        if (tipo === 'D') {
+            next();
+        } else {
+            res.json({
+                auth: false,
+                msj: 'No autorizado'
+            });
+        }
+    } else {
+        res.json({
+            session: false,
+            msj: 'Inicie sesion antes'
+        });
+    }
+    console.log(tipo)
+});
 
 //RUTAS
-app.use('/paciente', session_middleware_paciente)
+app.use('/paciente', session_middleware)
 app.use('/paciente', funPaciente);
 app.use('/', login);
-app.use('/persona', session_middleware_doctor);
+app.use('/persona', session_middleware);
 app.use('/persona', login);
 app.use('/', info);
 app.listen(PORT, () => console.log('Servidor iniciado en el puerto %d', PORT));
