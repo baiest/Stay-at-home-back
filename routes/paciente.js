@@ -20,7 +20,7 @@ router.post('/get', async(req, res) => {
             ]
         })
         .then(result => {
-            res.send(result);
+            res.json(result);
         })
         .catch(err => console.log(err));
 });
