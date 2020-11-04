@@ -63,7 +63,8 @@ router.post('/register', async(req, res) => {
                 direccion: req.body.direccion,
                 telefono: req.body.telefono,
                 doctor: req.body.doctor,
-                informeP: nuevoIn.idInforme
+                informeP: nuevoIn.idInforme,
+                isActive: true
             })
             .then(res => console.log("Agregado"))
             .catch(err => {
