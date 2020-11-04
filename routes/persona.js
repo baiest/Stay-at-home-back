@@ -51,7 +51,7 @@ router.post('/forgotpass', async(req, res) => {
     if (person.length > 0) {
         var mailOptions = {
             from: 'senmailerwww@gmail.com',
-            to: 'senmailerwww@gmail.com', // aquí se cambiaría por el correo del req.body.email osea- to: req.body.email - para enviar el correo a otra persona 
+            to: req.body.email, // aquí se cambiaría por el correo del req.body.email osea- to: req.body.email - para enviar el correo a otra persona 
             subject: 'Prueba de correo enviado desde NodeJS',
             text: 'Ingresa a este enlace para actualizar tu contraseña https://localhost:3000/recoverPass'
         };
