@@ -20,7 +20,7 @@ router.post('/get', async(req, res) => {
             ]
         })
         .then(result => {
-            res.send(result);
+            res.json(result);
         })
         .catch(err => console.log(err));
 });
@@ -62,7 +62,8 @@ router.post('/register', async(req, res) => {
                 direccion: req.body.direccion,
                 telefono: req.body.telefono,
                 doctor: req.body.doctor,
-                informeP: nuevoIn.idInforme
+                informeP: nuevoIn.idInforme,
+                isActive: true
             })
             .then(res => console.log("Agregado"))
             .catch(err => {

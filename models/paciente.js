@@ -2,6 +2,7 @@
 const {
     Model
 } = require('sequelize');
+const { Sequelize } = require('.');
 module.exports = (sequelize, DataTypes) => {
     class Paciente extends Model {
         /**
@@ -41,7 +42,11 @@ module.exports = (sequelize, DataTypes) => {
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
         doctor: DataTypes.INTEGER,
-        informeP: DataTypes.INTEGER
+        informeP: DataTypes.INTEGER,
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        }
     }, {
         sequelize,
         modelName: 'Paciente',
