@@ -7,10 +7,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const http = require('http');
-const server = http.createServer(app);
-const socketio = require('socket.io');
-const io = socketio.listen(server);
 
 const PORT = process.env.PORT || 5000;
 
@@ -59,12 +55,24 @@ app.use('/', login);
 app.use('/persona', session_middleware);
 app.use('/persona', login);
 app.use('/', info);
-app.use('/', chat);  
+app.use('/', chat);
 
 
+
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
+var server = app.listen(PORT, () => console.log('Servidor iniciado en el puerto %d', PORT));
+const socketio = require('socket.io');
+const io = socketio.listen(server);
 
 // SOCKETS
-
 io.on('connection', (socket) => {
     console.log('we have a new connection');
 
@@ -72,14 +80,3 @@ io.on('connection', (socket) => {
         console.log('user had left');
     });
 });
-
-
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
-
-app.listen(PORT, () => console.log('Servidor iniciado en el puerto %d', PORT));
