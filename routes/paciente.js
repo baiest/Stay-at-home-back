@@ -25,6 +25,33 @@ router.post('/get', async(req, res) => {
         .catch(err => console.log(err));
 });
 
+/*Cambiar atributo isActiv ded paciente*/
+router.put('/active/:id', async(req, res) => {
+    const respuesta = {
+        update: true,
+        msg: 'Paciente actualizado'
+    }
+    await Paciente.findOne({
+            where: { cedulaP: req.params.id }
+        })
+        .catch(() => {
+            respuesta.update = false;
+            respuesta.msg = 'Paciente no encontrado'
+        });
+    await Paciente.update({
+            isActive: false
+        }, {
+            where: {
+                cedulaP: req.params.id
+            }
+        })
+        .catch(() => {
+            respuesta.update = false;
+            respuesta.msg = 'Paciente no encontrado'
+        });
+
+    res.send(respuesta)
+});
 router.post('/register', async(req, res) => {
     const respuesta = {
         agregado: false,
