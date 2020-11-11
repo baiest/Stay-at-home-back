@@ -25,6 +25,33 @@ router.post('/get', async(req, res) => {
         .catch(err => console.log(err));
 });
 
+/*Cambiar atributo isActiv ded paciente*/
+router.put('/active/:id', async(req, res) => {
+    const respuesta = {
+        update: true,
+        msg: 'Paciente actualizado'
+    }
+    await Paciente.findOne({
+            where: { cedulaP: req.params.id }
+        })
+        .catch(() => {
+            respuesta.update = false;
+            respuesta.msg = 'Paciente no encontrado'
+        });
+    await Paciente.update({
+            isActive: false
+        }, {
+            where: {
+                cedulaP: req.params.id
+            }
+        })
+        .catch(() => {
+            respuesta.update = false;
+            respuesta.msg = 'Paciente no encontrado'
+        });
+
+    res.send(respuesta)
+});
 router.post('/register', async(req, res) => {
     const respuesta = {
         agregado: false,
@@ -36,7 +63,8 @@ router.post('/register', async(req, res) => {
             }
         })
         .catch(err => console.log(err));
-    if (nuevaP.length == 0) {
+    console.log(nuevaP)
+    if (nuevaP.length === 0) {
 
         nuevaP = await Persona.create({
                 cedula: req.body.cedula,
@@ -49,13 +77,11 @@ router.post('/register', async(req, res) => {
             .catch(err => {
                 respuesta.msg = "Un capo vacio"
                 console.log(err)
-                res.send(respuesta)
             });
 
         const nuevoIn = await Informe.create({
-                texto: 'Prueba Registro paciente'
-            })
-            .catch(err => console.log(err));
+            texto: 'Prueba Registro paciente'
+        })
 
         await Paciente.create({
                 cedulaP: nuevaP.cedula,
@@ -69,6 +95,7 @@ router.post('/register', async(req, res) => {
             .then(res => console.log("Agregado"))
             .catch(err => {
                 respuesta.msg = "Un capo vacio"
+                nuevaP.destroy()
                 console.log(err)
                 res.send(respuesta)
             });
@@ -76,7 +103,6 @@ router.post('/register', async(req, res) => {
         respuesta.agregado = true;
         respuesta.msg = "Agregado exitosamente";
     }
-
     res.send(respuesta)
 });
 

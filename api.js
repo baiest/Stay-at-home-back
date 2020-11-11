@@ -39,7 +39,6 @@ session_middleware.use((req, res, next) => {
             msj: 'Inicie sesion antes'
         });
     }
-    console.log(tipo)
 });
 
 //RUTAS
