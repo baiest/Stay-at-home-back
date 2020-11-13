@@ -14,6 +14,14 @@ const addUser = ({ id, name, room}) => {
     users.push(user);
     return { user };
 }
+const getUser = (id) => {
+    const existingUser = users.find((user) => user.id === id);
+    if(!existingUser){
+        return {error: 'Usuario no registrado'};
+    }
+    const user = existingUser;
+   return { user };
+} 
 
 const removeUser = (id) => {
     const index = users.findIndex((user) => user.id === id);
@@ -23,11 +31,10 @@ const removeUser = (id) => {
     }
 }
 
-const getUser = (id) => users.find((user) => user.id === id);
+//const getUser = (id) => users.find((user) => user.id === id);
 
 
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
 module.exports = { addUser, removeUser, getUser, getUsersInRoom}
-
