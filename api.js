@@ -70,7 +70,7 @@ try {
             const { error, user } = addUser({ id: socket.id, name, room });           
             if (error) return callback(error);
             socket.emit('message', { user: 'admin', text: `${user.name}, ha entrado a la sala` });            
-            socket.broadcast.to(user.room).emit('message', { user: 'admin', text: ` ${user.name}, ha se unió ` });
+            socket.broadcast.to(user.room).emit('message', { user: 'admin', text: ` ${user.name}, se unió ` });
             socket.join(user.room);
             io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
             callback();
