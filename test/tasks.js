@@ -37,7 +37,7 @@ describe('Task API', () =>{
 
 
     });
-
+/*
     describe("GET /paciente/get", () =>{
         it("It should GET all pacientes registered", (done) => {
             chai.request('http://localhost:3000')
@@ -51,7 +51,7 @@ describe('Task API', () =>{
             });
         });    
     });
-
+*/
 
     /*
         Test the POST route
