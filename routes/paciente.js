@@ -3,7 +3,7 @@ var router = express.Router();
 const { Persona, Paciente, Informe } = require('../models')
 
 router.post('/get', async(req, res) => {
-    await Persona.findAll({
+    await Paciente.findAll({
             where: {
                 doctor: req.body.cedula
             },
