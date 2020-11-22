@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcrypt');
+var BCRYPT_SALT_ROUNDS = 12;
 const { Persona, Paciente, Informe } = require('../models')
 
 //Obtener informes
@@ -79,7 +81,7 @@ router.put('/active/:id', async(req, res) => {
     res.send(respuesta)
 });
 router.post('/register', async(req, res) => {
-    const respuesta = {
+    var respuesta = {
         agregado: false,
         msg: 'Ya existe ese paciente'
     }
@@ -89,46 +91,47 @@ router.post('/register', async(req, res) => {
             }
         })
         .catch(err => console.log(err));
-    console.log(nuevaP)
+    //console.log(nuevaP)
     if (nuevaP.length === 0) {
 
-        nuevaP = await Persona.create({
-                cedula: req.body.cedula,
-                nombres: req.body.nombres,
-                apellidos: req.body.apellidos,
-                email: req.body.email,
-                pass: req.body.pass,
-                tipo: 'P'
-            })
-            .catch(err => {
-                respuesta.msg = "Un capo vacio"
-                console.log(err)
-            });
-        /*
-        const nuevoIn = await Informe.create({
-            texto: 'Prueba Registro paciente'
-        })*/
+        bcrypt.hash(req.body.pass, BCRYPT_SALT_ROUNDS)
+            .then(async passHash => {
+                nuevaP = await Persona.create({
+                        cedula: req.body.cedula,
+                        nombres: req.body.nombres,
+                        apellidos: req.body.apellidos,
+                        email: req.body.email,
+                        pass: passHash,
+                        tipo: 'P'
+                    })
+                    .catch(err => {
+                        respuesta.msg = "Un capo vacio"
+                        console.log(err)
+                    });
 
-        await Paciente.create({
-                cedulaP: nuevaP.cedula,
-                fecha_nacimiento: req.body.fecha_nacimiento,
-                direccion: req.body.direccion,
-                telefono: req.body.telefono,
-                doctor: req.body.doctor,
-                //informeP: nuevoIn.idInforme,
-                isActive: true
-            })
-            .then(res => console.log("Agregado"))
-            .catch(err => {
-                respuesta.msg = "Un capo vacio"
-                nuevaP.destroy()
-                console.log(err)
-                res.send(respuesta)
-            });
+                await Paciente.create({
+                        cedulaP: nuevaP.cedula,
+                        fecha_nacimiento: req.body.fecha_nacimiento,
+                        direccion: req.body.direccion,
+                        telefono: req.body.telefono,
+                        doctor: req.body.doctor,
+                        //informeP: nuevoIn.idInforme,
+                        isActive: true
+                    })
+                    .then(res => {
+                        console.log("Agregado")
+                    })
+                    .catch(err => {
+                        respuesta.msg = "Un capo vacio"
+                        nuevaP.destroy()
+                        console.log(err)
+                        res.send(respuesta)
+                    });
 
-        respuesta.agregado = true;
-        respuesta.msg = "Agregado exitosamente";
+            });
     }
+    respuesta.agregado = true;
+    respuesta.msg = "Agregado exitosamente";
     res.send(respuesta)
 });
 

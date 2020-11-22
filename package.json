@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/baiest/Stay-at-home-back#readme",
     "dependencies": {
+        "bcrypt": "^5.0.0",
         "body-parser": "^1.19.0",
         "chai-http": "^4.3.0",
         "cookie-session": "^1.4.0",

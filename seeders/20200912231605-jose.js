@@ -1,5 +1,14 @@
 'use strict';
 
+var bcrypt = require('bcrypt');
+var BCRYPT_SALT_ROUNDS = 12;
+
+async function encriptar(pass) {
+    var nuevaPass;
+    await bcrypt.hash('123', BCRYPT_SALT_ROUNDS)
+        .then(passHash => nuevaPass = passHash)
+    return nuevaPass
+}
 module.exports = {
     up: async(queryInterface, Sequelize) => {
         await queryInterface.bulkInsert('Personas', [{
@@ -8,7 +17,7 @@ module.exports = {
                 apellidos: 'Perez',
                 email: 'correo@gmail.com',
                 tipo: 'D',
-                pass: '123',
+                pass: await encriptar('123'),
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -18,7 +27,7 @@ module.exports = {
                 apellidos: 'Zuares',
                 email: 'prueba@gmail.com',
                 tipo: 'P',
-                pass: '456',
+                pass: await encriptar('456'),
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -28,7 +37,7 @@ module.exports = {
                 apellidos: 'Suarez',
                 email: 'doctor@gmail.com',
                 tipo: 'D',
-                pass: '123',
+                pass: await encriptar('123'),
                 createdAt: new Date(),
                 updatedAt: new Date()
             },

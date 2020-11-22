@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const { Persona } = require('../models');
 const nodemailer = require('nodemailer');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -26,9 +27,8 @@ router.post('/login', async(req, res) => {
             email
         }
     });
-
     if (person) {
-        if (person.pass == pass) {
+        if (await bcrypt.compare(pass, person.pass)) {
             const token = jwt.sign({ user_id: person.email }, 'secret')
             req.header.token = token
             req.header.tipo = person.tipo
