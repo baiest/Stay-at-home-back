@@ -29,15 +29,16 @@ module.exports = {
                     as: 'doctor'
                 }
             },
-            informeP: {
-                type: Sequelize.INTEGER,
-                onDelete: 'CASCADE',
-                references: {
-                    model: 'Informes',
-                    key: 'idInforme',
-                    as: 'informeP'
-                }
-            },
+            /*
+                        informeP: {
+                            type: Sequelize.INTEGER,
+                            onDelete: 'CASCADE',
+                            references: {
+                                model: 'Informes',
+                                key: 'idInforme',
+                                as: 'informeP'
+                            }
+                        },*/
             isActive: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: true
