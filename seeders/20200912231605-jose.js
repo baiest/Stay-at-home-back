@@ -35,7 +35,7 @@ module.exports = {
         ])
 
         await queryInterface.bulkInsert('Informes', [{
-                idInforme: 1,
+                idInforme: 2,
                 texto: 'Informe de prueba',
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -49,7 +49,7 @@ module.exports = {
                 direccion: 'calle 23 # 45 - 758',
                 telefono: '554',
                 doctor: 1,
-                informeP: 1,
+                //informeP: 1,
                 isActive: true,
                 createdAt: new Date(),
                 updatedAt: new Date()

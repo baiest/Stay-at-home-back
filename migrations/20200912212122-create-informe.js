@@ -3,9 +3,13 @@ module.exports = {
     up: async(queryInterface, Sequelize) => {
         await queryInterface.createTable('Informes', {
             idInforme: {
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Personas',
+                    key: 'cedula',
+                    as: 'idInforme'
+                }
             },
             texto: {
                 type: Sequelize.TEXT
