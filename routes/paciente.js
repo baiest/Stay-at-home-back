@@ -55,25 +55,27 @@ router.put('/active/:id', async(req, res) => {
         update: true,
         msg: 'Paciente actualizado'
     }
-    await Paciente.findOne({
+    let paciente = await Paciente.findOne({
             where: { cedulaP: req.params.id }
         })
         .catch(() => {
             respuesta.update = false;
             respuesta.msg = 'Paciente no encontrado'
         });
-    await Paciente.update({
-            isActive: false
-        }, {
-            where: {
-                cedulaP: req.params.id
-            }
-        })
-        .catch(() => {
-            respuesta.update = false;
-            respuesta.msg = 'Paciente no encontrado'
-        });
-
+    if (respuesta.update) {
+        await paciente.update({
+                isActive: paciente.isActive ? false : true
+            }, {
+                where: {
+                    cedulaP: req.params.id
+                }
+            })
+            .catch(() => {
+                respuesta.update = false;
+                respuesta.msg = 'Paciente no encontrado'
+            });
+    }
+    respuesta.isActive = paciente.isActive
     res.send(respuesta)
 });
 router.post('/register', async(req, res) => {
