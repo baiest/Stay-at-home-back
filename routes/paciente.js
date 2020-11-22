@@ -34,16 +34,10 @@ router.post('/get', async(req, res) => {
                 doctor: req.body.cedula
             },
             include: [{
-                    model: Persona,
-                    as: 'persona',
-                    attributes: { exclude: ['pass', 'cedula'] }
-                },
-                {
-                    model: Informe,
-                    as: 'informe',
-                    attributes: { exclude: ['idInforme'] }
-                }
-            ]
+                model: Persona,
+                as: 'persona',
+                attributes: { exclude: ['pass', 'cedula'] }
+            }]
         })
         .then(result => {
             res.json(result);
