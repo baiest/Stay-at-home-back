@@ -2,6 +2,30 @@ var express = require('express');
 var router = express.Router();
 const { Persona, Paciente, Informe } = require('../models')
 
+//Obtener informes
+router.post('/informe/get', async(req, res) => {
+    let informes = await Informe.findAll({
+        where: {
+            idInforme: req.body.cedula
+        }
+    });
+    res.send(informes)
+});
+
+//Crear informe de pacientes
+router.post('/informe/registrar', async(req, res) => {
+    respuesta = { agregado: true, msj: "Ingresado" };
+    await Informe.create({
+        idInforme: req.body.cedulaP,
+        texto: req.body.texto
+    }).catch(err => {
+        respuesta.agregado = false;
+        respuesta.msj = "Algo salio mal"
+        console.log("Algo salio mal", err)
+    });
+
+    res.send(respuesta)
+});
 router.post('/get', async(req, res) => {
     await Paciente.findAll({
             where: {
@@ -78,10 +102,10 @@ router.post('/register', async(req, res) => {
                 respuesta.msg = "Un capo vacio"
                 console.log(err)
             });
-
+        /*
         const nuevoIn = await Informe.create({
             texto: 'Prueba Registro paciente'
-        })
+        })*/
 
         await Paciente.create({
                 cedulaP: nuevaP.cedula,
@@ -89,7 +113,7 @@ router.post('/register', async(req, res) => {
                 direccion: req.body.direccion,
                 telefono: req.body.telefono,
                 doctor: req.body.doctor,
-                informeP: nuevoIn.idInforme,
+                //informeP: nuevoIn.idInforme,
                 isActive: true
             })
             .then(res => console.log("Agregado"))

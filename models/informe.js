@@ -11,18 +11,22 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            this.belongsTo(models.Persona, {
+                as: 'informes',
+                foreignKey: 'idInforme',
+                onDelete: 'CASCADE'
+            });
         }
     };
     Informe.init({
         idInforme: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
         },
         texto: DataTypes.TEXT
     }, {
         sequelize,
         modelName: 'Informe',
     });
+    Informe.removeAttribute('id');
     return Informe;
 };

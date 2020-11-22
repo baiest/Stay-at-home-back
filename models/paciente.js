@@ -23,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'doctor',
                 onDelete: 'CASCADE'
             });
-            this.belongsTo(models.Informe, {
+            /*this.belongsTo(models.Informe, {
                 as: 'informe',
                 foreignKey: 'informeP',
                 onDelete: 'CASCADE'
-            });
+            });*/
 
         }
 
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         direccion: DataTypes.STRING,
         telefono: DataTypes.STRING,
         doctor: DataTypes.INTEGER,
-        informeP: DataTypes.INTEGER,
+        //informeP: DataTypes.INTEGER,
         isActive: {
             type: DataTypes.BOOLEAN,
             defaultValue: true
