@@ -67,9 +67,9 @@ try {
     io.on('connection', (socket) => {
         socket.emit('connection', "Alguien conectado")
         socket.on('join', ({ name, room }, callback) => {
-            const { error, user } = addUser({ id: socket.id, name, room });           
+            const { error, user } = addUser({ id: socket.id, name, room });
             if (error) return callback(error);
-            socket.emit('message', { user: 'admin', text: `${user.name}, ha entrado a la sala` });            
+            socket.emit('message', { user: 'admin', text: `${user.name}, ha entrado a la sala` });
             socket.broadcast.to(user.room).emit('message', { user: 'admin', text: ` ${user.name}, se unió ` });
             socket.join(user.room);
             io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
@@ -83,6 +83,7 @@ try {
             io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
             callback();
         });
+
 
         socket.on('disconnected', () => {
             const user = removeUser(socket.id);
