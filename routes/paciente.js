@@ -6,12 +6,21 @@ const { Persona, Paciente, Informe } = require('../models')
 
 //Obtener informes
 router.post('/informe/get', async(req, res) => {
-    let informes = await Informe.findAll({
+    let paciente = await Paciente.findAll({
         where: {
-            idInforme: req.body.cedula
+            cedulaP: req.body.cedula
         }
     });
-    res.send(informes)
+    let resultado = [];
+    paciente.map(async paci => {
+
+        resultado.push(await Informe.findOne({
+            where: {
+                idInforme: paci.cedulaP
+            }
+        }));
+    });
+    res.send(resultado);
 });
 
 //Crear informe de pacientes
