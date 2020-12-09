@@ -84,8 +84,6 @@ try {
             callback();
         });
 
-        
-
         socket.on('disconnected', () => {
             const user = removeUser(socket.id);
             if (user) {
