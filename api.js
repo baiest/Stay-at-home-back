@@ -2,7 +2,6 @@
 CREAR EL SERVIDOR QUE CONTENDRA LA API QUE 
 SE CONECTA CON LA BASE DE DATOS
 */
-
 const express = require('express');
 const app = express();
 const cors = require('cors');
