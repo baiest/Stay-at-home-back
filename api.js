@@ -66,6 +66,9 @@ try {
 
     io.on('connection', (socket) => {
         socket.emit('connection', "Alguien conectado")
+        socket.on('ping', (data) => {
+            socket.emit('newLocation', data);
+          });
         socket.on('join', ({ name, room }, callback) => {
             const { error, user } = addUser({ id: socket.id, name, room });
             if (error) return callback(error);
